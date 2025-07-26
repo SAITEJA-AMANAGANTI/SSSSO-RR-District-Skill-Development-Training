@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Static Currency Converter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .converter-container {
+      background: #fff;
+      padding: 2.5em 2em 2em 2em;
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+      max-width: 350px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.6em;
+      letter-spacing: 2px;
+      color: #f78436;
+      margin-bottom: 1.4em;
+    }
+    label {
+      display: block;
+      font-size: 1em;
+      margin-bottom: 0.35em;
+      color: #333;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.7em;
+      margin-bottom: 1em;
+      font-size: 1em;
+      border-radius: 7px;
+      border: 1.2px solid #e0e0e0;
+      background: #f9f9f9;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #f78436;
+    }
+    button {
+      background: linear-gradient(90deg, #f78436, #f6d365);
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 0.9em;
+      border-radius: 7px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 0.6em;
+      box-shadow: 0 2px 4px rgba(247, 132, 54, 0.14);
+      transition: background 0.2s, transform 0.15s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #fd9644, #f7b267);
+      transform: translateY(-2px);
+    }
+    .result, .error {
+      margin-top: 1.2em;
+      font-weight: 500;
+      text-align: center;
+      letter-spacing: 1.2px;
+      padding: 0.6em 0.7em;
+      border-radius: 7px;
+    }
+    .result {
+      color: #188529;
+      background: #eafbea;
+      border: 1px solid #b4ebb4;
+    }
+    .error {
+      color: #d7263d;
+      background: #ffeaea;
+      border: 1px solid #ffc2c2;
+    }
+    @media (max-width: 480px) {
+      .converter-container {
+        padding: 1.2em;
+      }
+      h1 {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="converter-container">
+    <h1>💱 Static Currency Converter</h1>
+    <form method="POST" autocomplete="off">
+      <label for="amount">Amount</label>
+      <input type="number" min="0" step="any" name="amount" id="amount" required>
+
+      <label for="from_currency">From</label>
+      <select name="from_currency" id="from_currency" required>
+        <option value="" disabled selected>Select currency</option>
+        <option value="USD">🇺🇸 United States Dollar (USD)</option>
+        <option value="EUR">🇪🇺 Euro (EUR)</option>
+        <option value="INR">🇮🇳 Indian Rupee (INR)</option>
+      </select>
+
+      <label for="to_currency">To</label>
+      <select name="to_currency" id="to_currency" required>
+        <option value="" disabled selected>Select currency</option>
+        <option value="USD">🇺🇸 United States Dollar (USD)</option>
+        <option value="EUR">🇪🇺 Euro (EUR)</option>
+        <option value="INR">🇮🇳 Indian Rupee (INR)</option>
+      </select>
+      <button type="submit">Convert</button>
+    </form>
+
+    {% if result is not none %}
+      <div class="result">✅ Converted Amount: <b>{{ result | round(2) }}</b></div>
+    {% endif %}
+
+    {% if error %}
+      <div class="error">❌ {{ error }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
+
